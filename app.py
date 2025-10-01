@@ -4,14 +4,12 @@ import streamlit as st
 import requests
 from datetime import datetime
 from functools import lru_cache
-from dotenv import load_dotenv
-import os
 import numpy as np
 
 load_dotenv()  # Loads variables from .env into environment
 
 # Configuration
-TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+TMDB_API_KEY = "3c6714d4a34bc290692198aa8fc4c87a"
 POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
 PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w185"
 DEFAULT_POSTER = "https://via.placeholder.com/500x750?text=No+Poster+Available"
@@ -1831,4 +1829,5 @@ def main():
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
+
     main()
