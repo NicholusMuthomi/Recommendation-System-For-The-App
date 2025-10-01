@@ -6,8 +6,6 @@ from datetime import datetime
 from functools import lru_cache
 import numpy as np
 
-load_dotenv()  # Loads variables from .env into environment
-
 # Configuration
 TMDB_API_KEY = "3c6714d4a34bc290692198aa8fc4c87a"
 POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
@@ -1831,3 +1829,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
