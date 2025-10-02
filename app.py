@@ -1286,59 +1286,6 @@ def display_reviews(reviews):
             if 1 <= rating <= 10:
                 rating_counts[int(rating)] += 1
         
-        # Create the bar chart with better styling
-        import plotly.express as px
-        df = pd.DataFrame({
-            'Rating': list(rating_counts.keys()),
-            'Count': list(rating_counts.values())
-        })
-        
-        # Create color array - blue gradient getting darker for higher ratings
-        colors = ['#1E3A8A', '#1E40AF', '#1D4ED8', '#2563EB', '#3B82F6', 
-                 '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE', '#EBF8FF']
-        
-        fig = px.bar(df, x='Rating', y='Count', 
-                     labels={'Count': 'Number of Reviews'},
-                     color='Rating',
-                     color_continuous_scale='Blues',
-                     range_x=[0.5, 10.5],
-                     range_y=[0, max(rating_counts.values()) + 1 if rating_counts.values() else 1])
-        
-        fig.update_layout(
-            xaxis=dict(
-                tickmode='linear', 
-                tick0=1, 
-                dtick=1,
-                showgrid=False,
-                tickfont=dict(color='white', size=12)
-            ),
-            yaxis=dict(
-                showgrid=True, 
-                gridcolor='rgba(255, 255, 255, 0.1)',
-                tickfont=dict(color='white', size=12)
-            ),
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            font=dict(color='white'),
-            margin=dict(l=40, r=40, t=20, b=40),
-            showlegend=False,
-            height=200
-        )
-        
-        fig.update_traces(
-            marker_color=['#1E40AF' if i < 6 else '#2563EB' if i < 8 else '#3B82F6' 
-                         for i in range(1, 11)],
-            hovertemplate='<b>Rating %{x}</b><br>Reviews: %{y}<extra></extra>'
-        )
-        
-        fig.update_xaxes(title_text='')
-        fig.update_yaxes(title_text='')
-        
-        with st.container():
-            st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.info("📊 No rating data available to display the distribution.")
-    
     # Featured reviews section
     st.markdown('<div class="featured-reviews-section">', unsafe_allow_html=True)
     st.markdown('<h3 class="featured-title">Featured reviews</h3>', unsafe_allow_html=True)
@@ -1829,4 +1776,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
