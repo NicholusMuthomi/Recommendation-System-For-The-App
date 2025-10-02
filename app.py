@@ -481,141 +481,78 @@ def display_movie_details(movie_title, details):
     st.markdown('</div>', unsafe_allow_html=True)
 
 def display_cast(cast_details):
+    # Enhanced CSS with higher specificity
     cast_css = """
     <style>
-    .cast-crew-section {
-        margin: 40px 0;
-        padding: 0;
-        background: transparent;
+    div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlock"] .cast-section {
+        margin: 40px 0 !important;
+        padding: 0 !important;
     }
     
-    .tabs-container {
-        margin-bottom: 30px;
+    .cast-header {
+        text-align: center !important;
+        margin-bottom: 30px !important;
+        padding: 20px !important;
     }
     
-    .tabs-nav {
-        display: flex;
-        gap: 0;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-        padding: 4px;
-        margin-bottom: 30px;
+    .cast-title {
+        color: white !important;
+        font-size: 2rem !important;
+        font-weight: bold !important;
+        margin-bottom: 10px !important;
     }
     
-    .tab-button {
-        flex: 1;
-        padding: 12px 20px;
-        background: transparent;
-        color: rgba(255, 255, 255, 0.7);
-        border: none;
-        border-radius: 6px;
-        font-size: 0.95rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
+    .cast-subtitle {
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-size: 1.1rem !important;
+        margin: 0 !important;
     }
     
-    .tab-button.active {
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        font-weight: 600;
+    /* Cast member cards */
+    div[data-testid="column"] .stImage {
+        border-radius: 10px !important;
+        overflow: hidden !important;
     }
     
-    .tab-button:hover {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.9);
+    /* Text container styling */
+    div[data-testid="column"] > div:last-child {
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 15px !important;
+        padding: 15px !important;
+        margin: 10px 0 !important;
+        backdrop-filter: blur(15px) !important;
     }
     
-    .cast-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 20px;
-        margin: 0;
-        padding: 0;
+    /* Ensure text colors are correct */
+    div[data-testid="column"] > div:last-child * {
+        color: white !important;
+        text-align: center !important;
     }
     
-    .cast-member {
-        text-align: center;
-        background: transparent;
-        padding: 0;
+    /* Character name styling */
+    div[data-testid="column"] > div:last-child div:last-child {
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-style: italic !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 10px !important;
+        padding: 6px 10px !important;
+        margin: 8px 0 !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
     }
     
-    .cast-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-    
-    .cast-name {
-        color: white;
-        font-size: 0.95rem;
-        font-weight: 600;
-        margin-bottom: 4px;
-        line-height: 1.2;
-        text-align: center;
-    }
-    
-    .cast-character {
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 0.8rem;
-        font-style: normal;
-        line-height: 1.2;
-        margin: 0;
-        text-align: center;
-    }
-    
-    .cast-placeholder {
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: rgba(255, 255, 255, 0.4);
-        font-size: 2.5rem;
-    }
-    
-    /* Responsive design */
-    @media (max-width: 768px) {
-        .cast-grid {
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 15px;
-        }
-        
-        .cast-name {
-            font-size: 0.85rem;
-        }
-        
-        .cast-character {
-            font-size: 0.75rem;
-        }
-        
-        .tab-button {
-            padding: 10px 16px;
-            font-size: 0.9rem;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .cast-grid {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-        
-        .cast-name {
-            font-size: 0.8rem;
-        }
-        
-        .cast-character {
-            font-size: 0.7rem;
-        }
-        
-        .tab-button {
-            padding: 8px 12px;
-            font-size: 0.85rem;
-        }
+    /* Main cast badge */
+    div[data-testid="column"] > div:last-child div:last-child + div {
+        background: linear-gradient(135deg, #E50914 0%, #B81D24 100%) !important;
+        color: white !important;
+        padding: 4px 8px !important;
+        border-radius: 12px !important;
+        font-size: 0.7rem !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        display: inline-block !important;
+        margin-top: 5px !important;
     }
     </style>
     """
@@ -627,88 +564,38 @@ def display_cast(cast_details):
         return
     
     # Main cast container
-    st.markdown('<div class="cast-section">', unsafe_allow_html=True)
-    
-    # Header
-    st.markdown(f"""
-    <div class="cast-header">
-        <h2 class="cast-title">
-             Main Cast
-        </h2>
-        <p class="cast-subtitle">
-            Meet the talented actors who brought this story to life
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    if not cast_details:
-        st.info("Cast information is not available for this movie.")
-        return
-    
-    # Create columns for cast members
-    cols = st.columns(5, gap="medium")
-    
-    for i, actor in enumerate(cast_details[:5]):  # Show top 5 cast members
-        with cols[i]:
-            # Profile image with fallback
-            if actor.get('profile_path'):
-                profile_url = f"{PROFILE_BASE_URL}{actor['profile_path']}"
-            else:
-                profile_url = DEFAULT_PROFILE
-            
-            # Create a container for styling
-            with st.container():
+    with st.container():
+        st.markdown("""
+        <div class="cast-header">
+            <h2 class="cast-title">Main Cast</h2>
+            <p class="cast-subtitle">Meet the talented actors who brought this story to life</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Create columns for cast members
+        cols = st.columns(5, gap="medium")
+        
+        for i, actor in enumerate(cast_details[:5]):
+            with cols[i]:
+                # Profile image with fallback
+                if actor.get('profile_path'):
+                    profile_url = f"{PROFILE_BASE_URL}{actor['profile_path']}"
+                else:
+                    profile_url = DEFAULT_PROFILE
+                
                 # Display profile image
                 st.image(profile_url, use_container_width=True)
                 
-                # Actor name with styling
+                # Actor info with proper styling
                 st.markdown(f"""
-                <div style="
-                    text-align: center;
-                    margin: 10px 0;
-                    padding: 15px;
-                    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    border-radius: 15px;
-                    backdrop-filter: blur(15px);
-                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-                ">
-                    <div style="
-                        color: white;
-                        font-size: 1.1rem;
-                        font-weight: bold;
-                        margin-bottom: 8px;
-                        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-                    ">
+                <div style="text-align: center;">
+                    <div style="font-weight: bold; font-size: 1.1rem; margin-bottom: 8px;">
                         {actor.get('name', 'N/A')}
                     </div>
-                    <div style="
-                        color: rgba(255, 255, 255, 0.8);
-                        font-size: 0.9rem;
-                        font-style: italic;
-                        padding: 6px 10px;
-                        background: rgba(255, 255, 255, 0.1);
-                        border-radius: 10px;
-                        border: 1px solid rgba(255, 255, 255, 0.2);
-                    ">
+                    <div>
                         as {actor.get('character', 'N/A')}
                     </div>
-                    <div style="
-                        margin-top: 10px;
-                        display: inline-block;
-                        background: linear-gradient(135deg, #d61a1a 0%, #d61a1a 100%);
-                        color: white;
-                        padding: 4px 8px;
-                        border-radius: 12px;
-                        font-size: 0.7rem;
-                        font-weight: bold;
-                        text-transform: uppercase;
-                        letter-spacing: 1px;
-                    ">
-                        Main Cast
-                    </div>
+                    <div>MAIN CAST</div>
                 </div>
                 """, unsafe_allow_html=True)
     
@@ -1776,5 +1663,6 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
 
